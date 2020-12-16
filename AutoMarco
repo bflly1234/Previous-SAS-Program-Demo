@@ -1,0 +1,55 @@
+ods output TrimmedMeans=Trimmed(keep=VarName Mean Stdmean DF);
+   proc univariate data=test trim=.1;
+     var Ttl_asset bkse_M_sum bond_M_sum chrem_M_sum fund_M_sum gold_M_sum gini;
+   run;
+   ods output close;
+   data Restructure;
+      set test1;
+      length VarName $ 32;
+      array Vars[*] Ttl_asset;
+      do i = 1 to dim(Vars);
+         VarName = vname(Vars[i]);
+         Value = Vars[i];
+         output;
+      end;
+      keep Party_Id VarName Value;
+   run;
+   proc sort data=Trimmed;
+      by VarName;
+   run;
+   proc sort data=restructure;
+      by VarName;
+   run;
+
+   data Outliers;
+      merge Restructure Trimmed;
+      by VarName;
+      Std = StdMean*sqrt(DF + 1);
+      if Value lt Mean - &N_sd*Std and not missing(Value) 
+         then do;
+            Reason = 'Low  ';
+            output;
+         end;
+      else if Value gt Mean + &N_sd*Std
+         then do;
+         Reason = 'High';
+         output;
+      end;
+   run;
+   proc sort data=Outliers;
+      by &ID;
+   run;
+   ods listing;
+   ods HTML;
+   title "Outliers Based on Trimmed Statistics";
+   proc print data=Outliers;
+      id &ID;
+      var VarName Value Reason;
+   run;
+   proc datasets nolist library=work;
+      delete Trimmed;
+      delete Restructure;
+   run;
+   quit;
+
+%Auto_Outliers(Dsn=test1,Id=Party_Id,Var_List=chrem_M_sum,Trim=.1,N_Sd=2)
