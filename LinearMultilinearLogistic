@@ -1,0 +1,36 @@
+%let mydata=%str(E:\SAS\SAS Course\Telcom Project);
+libname mydata "&mydata";
+ods graphics on;
+proc corr data=mydata.fitness rank 
+   plots(only)=scatter(nvar=all ellipse=none);
+   var runtime age weight runpulse restpulse maxpulse;
+   with oxygen;
+   run;
+ods graphics off;
+
+/* Simple linear regression*/
+
+ods graphics on;
+proc corr data=mydata.fitness rank 
+   plots(only)=matrix(nvar=all  hist);
+   var runtime age weight runpulse restpulse maxpulse;
+   run;
+ods graphics off;
+
+/* Multiple linear regression*/
+ods graphics on;
+proc reg data=mydata.fitness;
+model oxygen=runtime;
+run;
+quit; 
+ods graphics off;
+
+/* Multiple linear regression*/
+ods graphics on;
+proc reg data=mydata.fitness plots(only)=( adjrsq );
+Forward:  model oxygen=runtime age weight runpulse restpulse maxpulse/selection=forward;
+backward:  model oxygen=runtime age weight runpulse restpulse maxpulse/selection=backward;
+stepwise:  model oxygen=runtime age weight runpulse restpulse maxpulse/selection=stepwise;
+run;
+quit;
+ods graphics off;
