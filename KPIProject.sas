@@ -1,9 +1,10 @@
+/*This program mainly uses proc sql to automatically search the time to complete the weekly sales report*/
 data _null_;
 a=time();
 call symput('start',a);
 run;
-
-libname kpi "E:\SAS\";
+%let folder=%str(you folder);
+libname KPI "&folder"; 
 %let datafile=kpi.sasbi_report;
 %let var1=prov;
 %let var2=channel;
