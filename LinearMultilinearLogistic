@@ -1,4 +1,4 @@
-%let mydata=%str(E:\SAS\SAS Course\Telcom Project);
+%let mydata=%str(folder);
 libname mydata "&mydata";
 ods graphics on;
 proc corr data=mydata.fitness rank 
