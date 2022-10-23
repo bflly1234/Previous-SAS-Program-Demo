@@ -3,7 +3,7 @@ data _null_;
 a=time();
 call symput('start',a);
 run;
-%let folder=%str(you folder);
+%let folder=%str(folder);
 libname KPI "&folder"; 
 %let datafile=kpi.sasbi_report;
 %let var1=prov;
