@@ -1,4 +1,4 @@
-/*This program mainly uses proc sql to automatically search the time to complete the weekly sales report*/
+/*This program mainly uses proc sql to automatically search the date to complete the weekly sales report*/
 data _null_;
 a=time();
 call symput('start',a);
