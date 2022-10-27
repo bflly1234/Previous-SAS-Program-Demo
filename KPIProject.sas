@@ -1,4 +1,4 @@
-/*This program mainly uses proc sql to automatically search the date to complete the weekly sales report*/
+/*This program mainly use proc sql to automatically search the date to complete the weekly sales report*/
 data _null_;
 a=time();
 call symput('start',a);
@@ -16,7 +16,7 @@ libname KPI "&folder";
                    var &var3 &var4;
              run;
 
-	    proc freq data=&datafile; 
+	 proc freq data=&datafile; 
                   table &var1 &var2; 
              run;
 %mend;
@@ -44,7 +44,7 @@ data DailySales;
      set DailySales;
          DayofWeek=Weekday(&var3);
          WeekofYear=Week(&var3);
-		 DayofMonth=Day(&var3);
+	 DayofMonth=Day(&var3);
          MonthofYear=Month(&var3);
          QuarterofYear=Qtr(&var3);
          SaleofYear=Year(&var3);
@@ -54,7 +54,7 @@ sasfile DailySales load;
 proc sql;
     create table WeektoDateReport as
 	select *	       
-	from (     select SaleofYear,
+	from ( select SaleofYear,
                       prov,
                       WeekofYear,
                       Sum(DailySales) as WeeklySales
@@ -75,9 +75,9 @@ select (prov);
     when ('AB') WOW = Round(dif( WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
     when ('Atlantic') WOW = Round( dif(WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
     when ('BC') WOW = Round(dif( WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
-	when ('ON') WOW = Round(dif( WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
+    when ('ON') WOW = Round(dif( WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
     when ('QC') WOW = Round(dif( WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
-	otherwise WOW = Round(dif( WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
+    otherwise WOW = Round(dif( WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
 	end;
 	run;
 
