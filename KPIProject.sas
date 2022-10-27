@@ -79,7 +79,7 @@ select (prov);
     when ('QC') WOW = Round(dif( WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
     otherwise WOW = Round(dif( WeeklySales ) / lag( WeeklySales ) * 100, 0.01);
 	end;
-	run;
+run;
 
 proc transpose data=WeektoDateReport out=WeektoDateReport1 prefix=week;
 by saleofyear prov;
