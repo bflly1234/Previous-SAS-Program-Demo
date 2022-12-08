@@ -36,7 +36,7 @@ FORMAT CHURN_RATE PERCENT7.2;
 RUN ;
 
 ODS tagsets.HTMLpanel Path="E:\"
-BODY = "GRAPHS_ALL.html" STYLE=SASWEB;
+BODY = "GRAPHS.html" STYLE=SASWEB;
 proc report 
 data=DemoChurnRate2 
 nowindows
