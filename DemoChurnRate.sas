@@ -2,7 +2,7 @@ proc import datafile="E:\DemoChurnRate.xlsx" out=DemoChurnRate DBMS=xlsx replace
 run; 
 
 /*Reconcile the data first*/
-proc means data=DemoChurnRate min max sum n nmiss;
+proc means data=DemoChurnRate min max n nmiss;
             var EFFECTIVE_DATE TRANSACTION_DATE YR_MONTH;
             run;
 
