@@ -35,8 +35,8 @@ CHURN_RATE=ROUND(TERMINATED/ACTIVE,.01);
 FORMAT CHURN_RATE PERCENT7.2;
 RUN ;
 
-ODS tagsets.HTMLpanel Path="E:\"
-BODY = "GRAPHS.html" STYLE=SASWEB;
+ODS html Path="E:\"
+file = "FinancialStatus.html" STYLE=SASWEB;
 proc report 
 data=DemoChurnRate2 
 nowindows
@@ -53,8 +53,8 @@ define TERMINATED/"Terminated/Account Count" right ;
 define CHURN_RATE/"CHURN RATE" right format=percent11.2;
  title1 j=l font=arial height =10 pt "XXX Company Inc."
  		j=r "Page 1 of 1";
- title2 "Customer Status Overview";
+ title2 "Financial Status Overview";
  title3 "Churn Rate by Province";
  footnote1 "Program Name:DemoChurnRate.sas Rundate: &sysdate9..";
 run;
-ODS TAGSETS.HTMLPANEL CLOSE;
+ODS html CLOSE;
