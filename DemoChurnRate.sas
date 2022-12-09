@@ -49,8 +49,8 @@ column YR_MONTH PROVINCE ACTIVE TERMINATED CHURN_RATE;
 define YR_MONTH/"Month" left ;
 define PROVINCE/"Province" center ;
 define ACTIVE/"Active/Account Count" center;
-define TERMINATED/"Terminated/Account Count" right ;
-define CHURN_RATE/"CHURN RATE" right format=percent11.2;
+define TERMINATED/"Terminated/Account Count" center ;
+define CHURN_RATE/"CHURN RATE" center format=percent10.2;
  title1 j=l font=arial height =10 pt "XXX Company Inc."
  		j=r "Page 1 of 1";
  title2 "Financial Status Overview";
@@ -58,3 +58,4 @@ define CHURN_RATE/"CHURN RATE" right format=percent11.2;
  footnote1 "Program Name:DemoChurnRate.sas Rundate: &sysdate9..";
 run;
 ODS html CLOSE;
+
