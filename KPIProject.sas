@@ -72,7 +72,7 @@ proc sql;
                         ,(ABS(SUM(CASE WHEN BELL_DIVISION = 'BNQ' AND PROVINCE_CODE = 'ON' THEN QUANTITY_RGU ELSE 0 END))) AS BNQ_ONTARIO
                         ,(ABS(SUM(CASE WHEN BELL_DIVISION = 'BNQ' AND PROVINCE_CODE = 'QC' THEN QUANTITY_RGU ELSE 0 END))) AS BNQ_QUEBEC
                         ,0 AS MTS
-            FROM GRP_BBM_BADM_VIEW.V_RDM_FACT_OI_DETAIL
+            FROM  
             WHERE ORDER_TYPE_LEVEL_2 = 'Churn' AND STATUS_GENERAL_DESC IN ('Completed', 'Issued')AND BUSINESS_UNIT = 'BRSB' AND QUANTITY_RGU <> 0
             group by BELL_DIVISION, ORDER_STATUS, LOB, DEACT_TYPE, PORT_OUT_FLAG, COMPLETE_Month_Of_Year, COMPLETE_Year_YYYY, ISSUED_Month_Of_Year, ISSUED_Year_YYYY, ISSUED_FULL_DATE, FUTURE_CANCEL_DT, TIME_TYPE
 
@@ -116,7 +116,7 @@ proc sql;
                 ,(ABS(SUM(CASE WHEN BELL_DIVISION = 'BNQ' AND PROVINCE_CODE = 'ON' THEN QUANTITY_RGU ELSE 0 END))) AS BNQ_ONTARIO
                 ,(ABS(SUM(CASE WHEN BELL_DIVISION = 'BNQ' AND PROVINCE_CODE = 'QC' THEN QUANTITY_RGU ELSE 0 END))) AS BNQ_QUEBEC
                 ,0 AS MTS
-            FROM GRP_BBM_BADM_VIEW.V_RDM_FACT_OI_DETAIL
+            FROM  
             WHERE ORDER_TYPE_LEVEL_2 = 'Churn' AND STATUS_GENERAL_DESC IN ('Completed') AND BUSINESS_UNIT = 'BRSB' AND QUANTITY_RGU <> 0
             group by BELL_DIVISION, ORDER_STATUS, LOB, DEACT_TYPE, PORT_OUT_FLAG, COMPLETE_Month_Of_Year, COMPLETE_Year_YYYY, ISSUED_Month_Of_Year, ISSUED_Year_YYYY, ISSUED_FULL_DATE, FUTURE_CANCEL_DT, TIME_TYPE
 
@@ -167,7 +167,7 @@ proc sql;
                         ,0 AS BNQ_ONTARIO
                         ,0 AS BNQ_QUEBEC
                         ,(ABS(SUM(CASE WHEN BELL_DIVISION = 'MTS' THEN QUANTITY_RGU ELSE 0 END))) AS MTS
-            FROM GRP_BBM_BADM_VIEW.V_RDM_FACT_OI_DETAIL_SALES_MTS
+            FROM  
             WHERE ORDER_TYPE_LEVEL_2 = 'Churn' AND STATUS_GENERAL_DESC IN ('Completed', 'Issued') AND QUANTITY_RGU <> 0 AND Channel_level_5 NOT IN ('MTS WLN - BUSINESS CHANNEL SUPPORT')
             group by BELL_DIVISION, ORDER_STATUS, LOB, DEACT_TYPE, PORT_OUT_FLAG, COMPLETE_Month_Of_Year, COMPLETE_Year_YYYY, ISSUED_Month_Of_Year, ISSUED_Year_YYYY, ISSUED_FULL_DATE, FUTURE_CANCEL_DT, TIME_TYPE
 
@@ -215,7 +215,7 @@ proc sql;
                         ,0 AS BNQ_ONTARIO
                         ,0 AS BNQ_QUEBEC
                         ,(ABS(SUM(CASE WHEN BELL_DIVISION = 'MTS' THEN QUANTITY_RGU ELSE 0 END))) AS MTS
-            FROM GRP_BBM_BADM_VIEW.V_RDM_FACT_OI_DETAIL_SALES_MTS
+            FROM  
             WHERE ORDER_TYPE_LEVEL_2 = 'Churn' AND STATUS_GENERAL_DESC IN ('Completed', 'Issued') AND QUANTITY_RGU <> 0 AND Channel_level_5 NOT IN ('MTS WLN - BUSINESS CHANNEL SUPPORT')
             group by BELL_DIVISION, ORDER_STATUS, LOB, DEACT_TYPE, PORT_OUT_FLAG, COMPLETE_Month_Of_Year, COMPLETE_Year_YYYY, ISSUED_Month_Of_Year, ISSUED_Year_YYYY, ISSUED_FULL_DATE, FUTURE_CANCEL_DT, TIME_TYPE;);
       disconnect from teradata_tables;
@@ -291,7 +291,7 @@ quit;
 /*Deact Plan:Plan*/
 proc sql;
       connect to teradata as teradata_tables
-      (user=&username password=&password server="EDWTDPROD.bell.corp.bce.ca" tpt=yes fastexport=yes);
+      (user=&username password=&password server="" tpt=yes fastexport=yes);
       create table fatchedData2 as
       select * from connection to teradata_tables
             (select     ORDER_TYPE_LEVEL_2,     
@@ -304,7 +304,7 @@ proc sql;
                         YEAR_YYYY,
                         abs(sum(QUANTITY_RGU)) as QUANTITY_RGU ,
                         LEDGER
-            from GRP_BBM_BADM_VIEW.v_rdm_ref_yee
+            from 
             where ORDER_TYPE_LEVEL_2 in ('Churn')
                         and ORDER_TYPE_LEVEL_3 in ('Voluntary Churn')
                         and STATUS_GENERAL_DESC in('Completed')
