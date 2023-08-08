@@ -809,7 +809,7 @@ group by Date;
 quit;
 
 proc export data=onpendingfsumsall
-                  outfile="/data/bbm/data/sasdata/sasuser/Billy/onpendingfsumsall.xlsx"
+                  outfile=""
                   dbms=xlsx
                   replace;
                   sheet= 'onpendingfsumsall';
@@ -877,7 +877,7 @@ group by FUTURE_CANCEL_DT;
 quit;
 
 proc export data=atpendingfsumsall
-                  outfile="/data/bbm/data/sasdata/sasuser/Billy/onpendingfsumsall.xlsx"
+                  outfile=""
                   dbms=xlsx
                   replace;
                   sheet= 'atpendingfsumsall';
@@ -1295,7 +1295,7 @@ proc format;
 run;
 
 options orientation=landscape nodate;
-ods pdf file="/data/bbm/data/sasdata/sasuser/Billy/SB FSUMS(Incl MTS) Trending Sheet &sysdate9..pdf" style=htmlblue pdftoc=1 uniform;
+ods pdf file="" style=htmlblue pdftoc=1 uniform;
 ods proclabel='National Deacts & FSUMS';
 ods pdf startpage=never;
 
@@ -1603,10 +1603,10 @@ FILE MailBox
             PUT '<br>';
             PUT '<br>';
             PUT "For changes to the distribution list please";
-        PUT '<a href="mailto:Small and Medium BI <SMBI@bell.ca>;?subject=SB FSUMS(Incl MTS) Trending Sheet Distribution List Update">Click Here</a>';
+        PUT '<a href="">Click Here</a>';
         PUT '<br>';
         PUT '<br>';
         PUT "If you have any questions or require further information please";
-        PUT '<a href="mailto:Small and Medium BI <SMBI@bell.ca>;?subject=SB FSUMS(Incl MTS) Trending Sheet Reporting Question">Contact Us</a>';
+        PUT '<a href="">Contact Us</a>';
         PUT '<br>';
 run;
